@@ -1,6 +1,6 @@
-import type { Metadata } from "next"; //take a look
+import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
-// import { siteConfig } from "@/data/site";
+import { siteConfig } from "@/data/site";
 import "./globals.css";
 
 const sans = Geist({
@@ -23,16 +23,15 @@ const display = Instrument_Serif({
   style: ["normal", "italic"],
   display: "swap",
 });
-//take a look
 
-// export const metadata: Metadata = {
-//   metadataBase: new URL(siteConfig.url),
-//   title: {
-//     default: `${siteConfig.name} — ${siteConfig.title}`,
-//     template: `%s — ${siteConfig.name}`,
-//   },
-//   description: siteConfig.description,
-// };
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: `${siteConfig.name} — ${siteConfig.title}`,
+    template: `%s — ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+};
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
