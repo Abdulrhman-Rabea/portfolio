@@ -33,3 +33,37 @@ body {
   background: var(--accent);
   color: var(--background);
 }
+@theme {
+  /* Fluid type scale: min, preferred (viewport-based), max */
+  --text-display: clamp(3.5rem, 11vw, 10rem);
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.03em;
+
+  --text-h1: clamp(2.5rem, 7vw, 6rem);
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.02em;
+
+  --text-h2: clamp(2rem, 4.5vw, 3.5rem);
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.015em;
+
+  --text-h3: clamp(1.5rem, 2.5vw, 2rem);
+  --text-h3--line-height: 1.15;
+
+  --text-lead: clamp(1.125rem, 1.6vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.08em;
+
+  /* Layout */
+  --container-page: 80rem; /* max-w-page */
+  --spacing-gutter: clamp(1.25rem, 4vw, 3rem); /* px-gutter */
+  --spacing-section: clamp(5rem, 12vw, 10rem); /* py-section */
+}
+/* Visible focus for keyboard users only (not on mouse click) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
