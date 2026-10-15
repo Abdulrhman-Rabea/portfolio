@@ -42,6 +42,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           href="#main"
           className="bg-accent text-background sr-only z-50 rounded px-4 py-2 focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
         >
+          <noscript>
+            <style >{`[data-hero-line],[data-hero-fade]{opacity:1!important}`}</style>
+          </noscript>
           Skip to content
         </a>
         <main id="main">{children}</main>
