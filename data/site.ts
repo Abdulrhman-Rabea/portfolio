@@ -15,3 +15,8 @@ export const socialLinks: readonly SocialLinks[] = [
   { label: "GitHub", href: "https://github.com/Abdulrhman-Rabea" },
   { label: "LinkedIn", href: "https://linkedin.com/in/abdulrhman-rabea" },
 ];
+export const hero = {
+  nameLines: ["Abdulrhman", "Rabea"],
+  availability: "Open to full-time roles & freelance projects",
+  headline: "Full-stack developer turning complex workflows into simple interfaces.",
+} as const;

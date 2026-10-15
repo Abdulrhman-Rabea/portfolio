@@ -67,3 +67,18 @@ body {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+/* Hero intro: hidden until GSAP reveals it. Only when motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-hero-line],
+  [data-hero-fade] {
+    opacity: 0;
+    /* Failsafe: if JS never runs, show everything after 4s */
+    animation: hero-failsafe 0s 4s forwards;
+  }
+}
+
+@keyframes hero-failsafe {
+  to {
+    opacity: 1;
+  }
+}
