@@ -20,6 +20,7 @@ export function HeroMotion({
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
+        console.log("motion is work")
         const tl = gsap.timeline();
 
         // 1. Name lines rise up from behind their masks
@@ -37,7 +38,6 @@ export function HeroMotion({
           );
       });
 
-      // Explicit cleanup (the hook's context also reverts, so this is just safe)
       return () => mm.revert();
     },
     { scope: root }, // selectors above only match inside this element
