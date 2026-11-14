@@ -12,6 +12,10 @@ export interface Project {
   repoUrl?: string;
   featured: boolean;
   hasCaseStudy: boolean;
+  image: {
+    src: string;
+    alt: string;
+  };
 }
 
 export interface Experience {
@@ -21,4 +25,10 @@ export interface Experience {
   end: string | "present";
   summary: string;
   highlights: readonly string[];
+}
+export interface SkillGroup {
+  name: string,
+  items: readonly string[],
+
+
 }
