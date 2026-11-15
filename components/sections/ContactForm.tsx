@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { sendContact, type ContactState } from "@/app/actions/contact";
-
+import { Magnetic } from "../ui/Magnetic";
 const initialState: ContactState = { status: "idle", message: "" };
 
 const fieldClass =
@@ -78,9 +78,11 @@ export function ContactForm() {
           </p>
         )}
       </div>
-
-      {/* Honeypot: hidden from people and screen readers, bots fill it in */}
-      <div aria-hidden="true" className="sr-only">
+<Magnetic>
+  <button type="submit" disabled={pending} className="...نفس الـ classes">
+    {pending ? "Sending…" : "Send message"}
+  </button>
+</Magnetic>      <div aria-hidden="true" className="sr-only">
         <label htmlFor="company">Company</label>
         <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>

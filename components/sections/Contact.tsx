@@ -1,8 +1,10 @@
 import { Container } from "@/components/ui/Container";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { hero, siteConfig, socialLinks } from "@/data/site";
+import { RollText } from "../ui/RollText";
 
 export function Contact() {
+  
   return (
     <section id="contact" aria-labelledby="contact-heading" className="border-border py-section border-t">
       <Container>
@@ -17,12 +19,13 @@ export function Contact() {
             </p>
             <p className="text-lead text-muted">{hero.availability}</p>
 
-            <a
-              href={`mailto:${siteConfig.email}`}
-              className="text-foreground hover:text-accent block break-all underline underline-offset-4 transition-colors"
-            >
-              {siteConfig.email}
-            </a>
+<a
+  href={`mailto:${siteConfig.email}`}
+  aria-label={siteConfig.email}
+  className="group text-foreground border-border hover:border-accent text-lead inline-block border-b pb-1 transition-colors"
+>
+  <RollText text={siteConfig.email} />
+</a>
 
             <ul className="text-label flex gap-6 font-mono uppercase">
               {socialLinks.map((link) => (

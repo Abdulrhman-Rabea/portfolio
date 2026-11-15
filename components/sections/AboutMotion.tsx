@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { gsap, SplitText, useGSAP } from "@/animations/gsap-setup";
-import { duration, ease, stagger } from "@/animations/presets";
 
 export function AboutMotion({
   children,
@@ -21,23 +20,26 @@ export function AboutMotion({
         const statement = root.current?.querySelector<HTMLElement>("[data-about-statement]");
         if (!statement) return;
 
-        // One deliberate moment: the statement rises line by line from behind
-        // masks, the same language as the hero headline.
         SplitText.create(statement, {
-          type: "lines",
-          mask: "lines",
-          // Re-splits when the width changes or fonts finish loading,
-          // so line breaks stay correct on resize and after the font swaps in.
-          autoSplit: true,
+          type: "words",
+          autoSplit: true, // re-splits on resize and after the font loads
           onSplit(self) {
-            // Returning the tween lets SplitText revert and rebuild it on re-split
-            return gsap.from(self.lines, {
-              yPercent: 110,
-              duration: duration.slow,
-              ease: ease.expo,
-              stagger: stagger.text,
-              scrollTrigger: { trigger: statement, start: "top 80%", once: true },
-            });
+            // Each word goes from dim to full brightness as you scroll through the sentence
+            return gsap.fromTo(
+              self.words,
+              { opacity: 0.2 },
+              {
+                opacity: 1,
+                ease: "none",
+                stagger: 0.1,
+                scrollTrigger: {
+                  trigger: statement,
+                  start: "top 80%",
+                  end: "bottom 45%",
+                  scrub: true,
+                },
+              },
+            );
           },
         });
       });

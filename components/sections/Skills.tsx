@@ -11,12 +11,12 @@ export function Skills() {
             Skills
           </h2>
 
-          <ul>
+          <ul className="hover:[&>li:not(:hover)]:opacity-40">
             {skillGroups.map((group) => (
               <li
                 key={group.name}
                 data-skill-row
-                className="relative grid gap-4 py-8 md:grid-cols-12 md:gap-x-8"
+                className="group relative grid gap-4 py-8 transition-opacity duration-300 md:grid-cols-12 md:gap-x-8"
               >
                 {/* The row's top line. A separate element so GSAP can scale it
                     without scaling the text (you can't animate a border cheaply). */}
@@ -30,9 +30,8 @@ export function Skills() {
                   {group.name}
                 </h3>
 
-                <div className="md:col-span-9">
-                  {/* Mask: same padding/negative-margin trick as the Hero lines */}
-                  <p className="font-display text-h3 text-foreground -my-[0.1em] overflow-hidden py-[0.1em]">
+                <div className="transition-transform duration-500 ease-out motion-safe:group-hover:translate-x-4 md:col-span-9">
+                  <p className="font-display text-h3 text-foreground group-hover:text-accent -my-[0.1em] overflow-hidden py-[0.1em] transition-colors duration-300">
                     <span data-skill-text className="block">
                       {group.items.join(", ")}
                     </span>
