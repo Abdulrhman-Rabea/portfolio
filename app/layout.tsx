@@ -19,7 +19,6 @@ const mono = Geist_Mono({
   display: "swap",
 });
 
-// Instrument Serif ships a single weight, plus an italic style
 const display = Instrument_Serif({
   variable: "--font-instrument",
   subsets: ["latin"],
@@ -54,23 +53,20 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0b0c", // browser UI on mobile matches your background
+  themeColor: "#0b0b0c", 
   colorScheme: "dark",
 };
-
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable} ${display.variable}`}>
-      <head>
-        {/* Without JavaScript the hero would stay hidden, so show it immediately */}
+      <head >
+        <meta name="google-site-verification" content="mQYq3MA_h-MMiM6HJfZ2N-U6WIkfMEC8XfKl5tV0TIw"></meta>
         <noscript>
           <style>{`[data-hero-line],[data-hero-fade]{opacity:1!important}`}</style>
         </noscript>
       </head>
 
-      {/* id="top" is the target of the logo and "Back to top" links */}
       <body id="top" className="font-sans antialiased">
-        {/* First focusable element: lets keyboard users skip repeated navigation */}
         <a
           href="#main"
           className="bg-accent text-background sr-only z-[60] rounded px-4 py-2 focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
