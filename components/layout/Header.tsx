@@ -3,12 +3,32 @@
 import { useEffect, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { navLinks, siteConfig } from "@/data/site";
-
+import { useRef } from "react"; 
+import { gsap, useGSAP } from "@/animations/gsap-setup";
 const linkClass = "text-muted hover:text-foreground transition-colors";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+const progress = useRef<HTMLDivElement>(null);
 
+useGSAP(() => {
+  const mm = gsap.matchMedia();
+
+  mm.add("(prefers-reduced-motion: no-preference)", () => {
+    // fromTo sets the start state itself, so the line only exists when motion is allowed
+    gsap.fromTo(
+      progress.current,
+      { scaleX: 0, opacity: 1 },
+      {
+        scaleX: 1,
+        ease: "none", // scrub must be linear, otherwise the line drifts from the scroll
+        scrollTrigger: { start: 0, end: "max", scrub: true },
+      },
+    );
+  });
+
+  return () => mm.revert();
+});
   // Close the mobile menu with Escape (keyboard users expect this)
   useEffect(() => {
     if (!open) return;
@@ -28,7 +48,11 @@ export function Header() {
       >
         Skip to content
       </a>
-
+<div
+  ref={progress}
+  aria-hidden="true"
+  className="bg-accent absolute inset-x-0 top-0 h-0.5 origin-left opacity-0"
+/>
       <Container>
         <div className="flex h-16 items-center justify-between">
           <a href="#top" className="font-display text-foreground text-xl">
