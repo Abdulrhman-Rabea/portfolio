@@ -8,7 +8,14 @@ export function Hero() {
   return (
     <section aria-label="Introduction">
       <Container>
-        <HeroMotion className="flex min-h-svh flex-col justify-between pt-32 pb-8">
+        <HeroMotion className="relative flex min-h-svh flex-col justify-between overflow-hidden pt-32 pb-8">
+          {/* Decorative: a soft blob that drifts and leans toward the pointer. Pure texture, hidden from AT. */}
+          <div
+            data-hero-blob
+            aria-hidden="true"
+            className="bg-accent/20 pointer-events-none absolute top-1/4 right-0 -z-10 size-[60vmin] rounded-full blur-3xl"
+          />
+
           {/* Top: availability */}
           <p
             data-hero-fade

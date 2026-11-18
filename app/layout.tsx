@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { SmoothScroll } from "@/animations/SmoothScroll";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { Preloader } from "@/components/layout/Preloader";
 import { siteConfig } from "@/data/site";
 import "lenis/dist/lenis.css"; // rules Lenis needs on <html>
 import "./globals.css";
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           Skip to content
         </a>
 
+        <Preloader />
         <SmoothScroll />
         <Header />
         <main id="main">{children}</main>

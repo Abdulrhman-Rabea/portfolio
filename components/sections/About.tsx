@@ -40,6 +40,7 @@ export function About() {
                 {about.facts.map((fact) => (
                   <div
                     key={fact.label}
+                    data-about-fact
                     className="border-border grid grid-cols-[8rem_1fr] gap-4 border-t py-4 last:border-b"
                   >
                     <dt className="text-label font-mono uppercase">{fact.label}</dt>
