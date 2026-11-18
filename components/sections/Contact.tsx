@@ -2,12 +2,14 @@ import { Container } from "@/components/ui/Container";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { hero, siteConfig, socialLinks } from "@/data/site";
 import { RollText } from "../ui/RollText";
+import { ContactMotion } from "@/components/sections/ContactMotion";
 
 export function Contact() {
   
   return (
     <section id="contact" aria-labelledby="contact-heading" className="border-border py-section border-t">
       <Container>
+        <ContactMotion>
         <h2 id="contact-heading" className="text-label text-muted font-mono uppercase">
           Contact
         </h2>
@@ -47,7 +49,8 @@ export function Contact() {
           <div className="md:col-span-7">
             <ContactForm />
           </div>
-        </div>
+          </div>
+          </ContactMotion>
       </Container>
     </section>
   );
