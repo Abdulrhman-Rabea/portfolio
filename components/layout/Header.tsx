@@ -4,13 +4,30 @@ import { useEffect, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { navLinks, siteConfig } from "@/data/site";
 import { useRef } from "react"; 
-import { gsap, useGSAP } from "@/animations/gsap-setup";
-const linkClass = "text-muted hover:text-foreground transition-colors";
+import { gsap, useGSAP ,ScrollTrigger} from "@/animations/gsap-setup";
+const linkClass =   "text-muted hover:text-foreground transition-colors aria-[current=location]:text-foreground aria-[current=location]:underline aria-[current=location]:decoration-accent aria-[current=location]:underline-offset-8";
 
 export function Header() {
   const [open, setOpen] = useState(false);
 const progress = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState("");
+  useGSAP(() => {
+  navLinks.forEach(({ href }) => {
+    const section = document.querySelector<HTMLElement>(href);
+    if (!section) return;
 
+    // A section is "active" while it covers the middle of the screen
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top 50%",
+      end: "bottom 50%",
+      onToggle: (self) => {
+        if (self.isActive) setActive(href);
+        else setActive((current) => (current === href ? "" : current));
+      },
+    });
+  });
+});
 useGSAP(() => {
   const mm = gsap.matchMedia();
 
@@ -28,6 +45,23 @@ useGSAP(() => {
   });
 
   return () => mm.revert();
+});
+  useGSAP(() => {
+  navLinks.forEach(({ href }) => {
+    const section = document.querySelector<HTMLElement>(href);
+    if (!section) return;
+
+    // A section is "active" while it covers the middle of the screen
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top 50%",
+      end: "bottom 50%",
+      onToggle: (self) => {
+        if (self.isActive) setActive(href);
+        else setActive((current) => (current === href ? "" : current));
+      },
+    });
+  });
 });
   // Close the mobile menu with Escape (keyboard users expect this)
   useEffect(() => {
@@ -54,6 +88,7 @@ useGSAP(() => {
   className="bg-accent absolute inset-x-0 top-0 h-0.5 origin-left opacity-0"
 />
       <Container>
+
         <div className="flex h-16 items-center justify-between">
           <a href="#top" className="font-display text-foreground text-xl">
             {siteConfig.name}
@@ -63,7 +98,7 @@ useGSAP(() => {
             <ul className="text-label flex gap-8 font-mono uppercase">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className={linkClass}>
+                  <a href={link.href}  aria-current={active === link.href ? "location" : undefined} className={linkClass}>
                     {link.label}
                   </a>
                 </li>
@@ -90,7 +125,7 @@ useGSAP(() => {
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
-                    href={link.href}
+                    href={link.href}   aria-current={active === link.href ? "location" : undefined}
                     className={`${linkClass} block py-4`}
                     onClick={() => setOpen(false)}
                   >
