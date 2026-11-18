@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/Container";
+import { FooterMotion } from "@/components/layout/FooterMotion";
 import { siteConfig, socialLinks } from "@/data/site";
 async function getYear() {
   "use cache";
@@ -10,7 +11,7 @@ export async function Footer() {
   return (
     <footer className="border-border border-t">
       <Container>
-        <div className="text-label text-muted flex flex-col gap-4 py-8 font-mono uppercase md:flex-row md:items-center md:justify-between">
+        <FooterMotion className="text-label text-muted flex flex-col gap-4 py-8 font-mono uppercase md:flex-row md:items-center md:justify-between">
           {/* The year is fixed at build time, which is fine for a footer */}
           <p>
              © {year} {siteConfig.name}
@@ -35,7 +36,7 @@ export async function Footer() {
           <a href="#top" className="hover:text-foreground transition-colors">
             Back to top <span aria-hidden="true">↑</span>
           </a>
-        </div>
+        </FooterMotion>
       </Container>
     </footer>
   );

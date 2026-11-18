@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { gsap, SplitText, useGSAP } from "@/animations/gsap-setup";
+import { distance, duration, ease, stagger } from "@/animations/presets";
 
 export function AboutMotion({
   children,
@@ -42,6 +43,18 @@ export function AboutMotion({
             );
           },
         });
+
+        const facts = root.current?.querySelectorAll<HTMLElement>("[data-about-fact]");
+        if (facts?.length) {
+          gsap.from(facts, {
+            opacity: 0,
+            y: distance.sm,
+            duration: duration.base,
+            ease: ease.out,
+            stagger: stagger.list,
+            scrollTrigger: { trigger: facts[0], start: "top 85%", once: true },
+          });
+        }
       });
 
       return () => mm.revert();

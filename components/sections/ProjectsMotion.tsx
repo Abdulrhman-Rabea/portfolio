@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP } from "@/animations/gsap-setup";
+import { gsap, ScrollTrigger, useGSAP } from "@/animations/gsap-setup";
 import { duration, ease } from "@/animations/presets";
 
 export function ProjectsMotion({
@@ -58,7 +58,70 @@ export function ProjectsMotion({
         });
       });
 
-      // 3. Cursor label: follows the mouse over a screenshot (mouse devices only)
+      // 3. Card stack: each project pins briefly while the next one slides over it
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+        const cards = Array.from(el.querySelectorAll<HTMLElement>("[data-project-card]"));
+
+        cards.forEach((card, i) => {
+          const next = cards[i + 1];
+          if (!next) return;
+
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top top+=64", // clears the fixed header
+            endTrigger: next,
+            end: "top top+=64",
+            pin: true,
+            pinSpacing: false,
+          });
+
+          gsap.to(card, {
+            scale: 0.94,
+            opacity: 0.4,
+            ease: "none",
+            scrollTrigger: {
+              trigger: card,
+              start: "top top+=64",
+              endTrigger: next,
+              end: "top top+=64",
+              scrub: true,
+            },
+          });
+        });
+      });
+
+      // 4. Tilt: the screenshot leans toward the pointer in 3D (mouse devices only)
+      mm.add(
+        "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+        () => {
+          el.querySelectorAll<HTMLElement>("[data-project-tilt]").forEach((tilt) => {
+            const rotateX = gsap.quickTo(tilt, "rotateX", { duration: 0.6, ease: ease.out });
+            const rotateY = gsap.quickTo(tilt, "rotateY", { duration: 0.6, ease: ease.out });
+
+            const onMove = (e: MouseEvent) => {
+              const rect = tilt.getBoundingClientRect();
+              const px = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
+              const py = (e.clientY - rect.top) / rect.height - 0.5;
+              rotateY(px * 14);
+              rotateX(py * -14);
+            };
+            const onLeave = () => {
+              rotateX(0);
+              rotateY(0);
+            };
+
+            tilt.addEventListener("mousemove", onMove);
+            tilt.addEventListener("mouseleave", onLeave);
+
+            return () => {
+              tilt.removeEventListener("mousemove", onMove);
+              tilt.removeEventListener("mouseleave", onLeave);
+            };
+          });
+        },
+      );
+
+      // 5. Cursor label: follows the mouse over a screenshot (mouse devices only)
       mm.add(
         "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
         () => {
